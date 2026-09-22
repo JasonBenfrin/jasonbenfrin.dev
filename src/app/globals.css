@@ -1,26 +1,64 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --primary: hsl(204, 100%, 79%);
+  --surface: hsl(207, 53%, 3%);
+  --surface-dim: hsl(207, 30%, 24%);
+  --on-surface: var(--primary);
+  --on-surface-variant: #b1b6b8;
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-primary: var(--primary);
+  --color-surface: var(--surface);
+  --color-on-surface: var(--on-surface);
+  --color-on-surface-variant: var(--on-surface-variant);
+  --font-sans: var(--font-sans);
+  --font-monospace: var(--font-monospace);
+  --spacing: 1ch;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+@utility inverse {
+  background-color: var(--on-surface);
+  color: var(--surface);
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--surface);
+  color: var(--on-surface);
+  font-family: var(--font-monospace);
+  @apply text-base;
+}
+
+*::selection {
+  background-color: var(--on-surface);
+  color: var(--surface);
+}
+
+.inverse::selection {
+  background: var(--surface);
+  color: var(--on-surface);
+}
+
+* {
+  border-color: var(--surface-dim);
+  overflow-x: visible;
+  /* outline: 1px rgba(255, 0, 0, 0.433) solid; */
+}
+
+@utility tree-list {
+  @apply flex flex-col;
+}
+
+.tree-list > * {
+  @apply relative;
+}
+
+.tree-list > *::before {
+  content: "├";
+  @apply absolute -translate-x-2;
+}
+
+.tree-list > *:last-child::before {
+  content: "└";
 }
