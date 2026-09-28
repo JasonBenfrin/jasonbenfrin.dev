@@ -1,16 +1,19 @@
 @import "tailwindcss";
 
 :root {
-  --primary: hsl(204, 100%, 79%);
-  --surface: hsl(207, 53%, 3%);
-  --surface-dim: hsl(207, 30%, 24%);
-  --on-surface: var(--primary);
-  --on-surface-variant: #b1b6b8;
+  --primary: hsl(204, 100%, 69%);
+  --surface: hsl(209, 73%, 7%);
+  --surface-bright: hsl(207, 30%, 24%);
+  --surface-dim: hsl(212, 100%, 3%);
+  --on-surface: hsl(203, 100%, 95%);
+  --on-surface-variant: hsl(197, 5%, 71%);
 }
 
 @theme inline {
   --color-primary: var(--primary);
   --color-surface: var(--surface);
+  --color-surface-bright: var(--surface-bright);
+  --color-surface-dim: var(--surface-dim);
   --color-on-surface: var(--on-surface);
   --color-on-surface-variant: var(--on-surface-variant);
   --font-sans: var(--font-sans);
@@ -18,8 +21,8 @@
   --spacing: 1ch;
 }
 
-@utility inverse {
-  background-color: var(--on-surface);
+@utility tag {
+  background-color: var(--primary);
   color: var(--surface);
 }
 
@@ -30,35 +33,35 @@ body {
   @apply text-base;
 }
 
-*::selection {
-  background-color: var(--on-surface);
-  color: var(--surface);
-}
-
-.inverse::selection {
-  background: var(--surface);
-  color: var(--on-surface);
+.tag {
+  @variant selection {
+    background: var(--surface);
+    color: var(--primary);
+  }
 }
 
 * {
-  border-color: var(--surface-dim);
-  overflow-x: visible;
+  border-color: var(--surface-bright);
   /* outline: 1px rgba(255, 0, 0, 0.433) solid; */
+
+  @variant selection {
+    background-color: var(--on-surface);
+    color: var(--surface);
+  }
 }
 
-@utility tree-list {
-  @apply flex flex-col;
-}
-
-.tree-list > * {
+.filetree {
   @apply relative;
 }
 
-.tree-list > *::before {
-  content: "├";
-  @apply absolute -translate-x-2;
+.nest-file {
+  @variant before {
+    @apply absolute;
+    translate: calc(-2ch * var(--iteration) - 2ch) 0;
+    content: attr(data-prefix);
+  }
 }
 
-.tree-list > *:last-child::before {
-  content: "└";
+button {
+  @apply cursor-pointer;
 }

@@ -1,0 +1,106 @@
+@import "./globals.css";
+
+@utility editor {
+
+* {
+  @apply text-wrap;
+}
+
+.ProseMirror-focused, *:focus {
+  @apply border-0 outline-0;
+}
+
+b, strong {
+  @apply font-bold;
+}
+
+i, em {
+  @apply italic;
+}
+
+s {
+  @apply line-through;
+}
+
+h1 {
+  @apply font-bold before:content-['#_'];
+}
+
+h2 {
+  @apply font-bold before:content-['##_'];
+}
+
+h3 {
+  @apply font-bold before:content-['###_'];
+}
+
+h4 {
+  @apply font-bold before:content-['####_'];
+}
+
+h5 {
+  @apply font-bold before:content-['#####_'];
+}
+
+h6 {
+  @apply font-bold before:content-['######_'];
+}
+
+blockquote {
+  @apply relative pl-2;
+
+  @variant before {
+    content: "";
+    @apply absolute top-0 bottom-0 left-0 bg-on-surface w-0.5;
+  }
+}
+
+li > * {
+  @apply inline;
+}
+
+li {
+  @apply list-inside;
+}
+
+ul li {
+  @apply list-['-_'];
+}
+
+ul ul li {
+  @apply pl-2 list-['+_'];
+}
+
+ul ul ul li {
+  @apply list-['*_'];
+}
+
+ol li {
+  @apply list-decimal;
+}
+
+ol ol li {
+  @apply pl-2 list-[lower-alpha];
+}
+
+code {
+  @apply font-monospace px-1 py-px border-2 border-surface-bright;
+}
+
+.codeblock code {
+  @apply w-full block p-2 rounded-[1ch];
+}
+
+.filename:has(+ .codeblock) {
+  @apply text-on-surface-variant font-monospace ml-1 px-1 inline-block translate-y-1/2 bg-surface;
+}
+
+hr {
+  @apply border-0 border-t-2;
+}
+
+p:empty {
+  @apply h-lh;
+}
+
+}

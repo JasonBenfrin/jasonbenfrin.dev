@@ -1,7 +1,10 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import Navbar from "@/_components/navbar";
+import "./wysiwyg.css"
+import Socials from "@/app/(frontend)/_components/socials";
 import { Inter, Martian_Mono } from "next/font/google"
+import FileTree from "@/app/(frontend)/_components/filetree";
+import SidebarToggleWrapper from "./(frontend)/_components/sidebarToggle";
 
 const interFont = Inter({
   weight: "variable",
@@ -10,7 +13,7 @@ const interFont = Inter({
   variable: "--font-sans"
 })
 
-const sixtyFour = Martian_Mono({
+const martianMono = Martian_Mono({
   weight: "variable",
   fallback: ["Courier New", "Courier", "monospace"],
   style: "normal",
@@ -34,22 +37,20 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="en"
-      className={`${interFont.className} ${sixtyFour.className} h-full antialiased`}
+      className={`${interFont.variable} ${martianMono.variable} h-full antialiased`}
     >
       <body className="w-full h-dvh flex flex-col">
-        <Navbar />
-        <div className="flex-[1_1_auto] overflow-hidden flex p-1 gap-1">
-          <div className="flex-1 border-2 p-1">
-            <h1 className="font-bold">/home/jason/</h1>
-            <ul className="pl-3 tree-list *:text-start">
-              <button>Pinned</button>
-              <button>Latest</button>
-            </ul>
+        <Socials />
+        <SidebarToggleWrapper>
+          <div className="flex-[1_1_auto] w-full overflow-hidden flex p-1 gap-1 relative">
+            <FileTree />
+            <div className="flex-3 flex absolute inset-1 bg-surface z-10 md:static group-[.showSidebar]/sidebar:hidden md:flex!">
+              <div className="flex-1 flex min-h-0 *:min-w-0">
+                {children}
+              </div>
+            </div>
           </div>
-          <div className="flex-3 flex">
-            {children}
-          </div>
-        </div>
+        </SidebarToggleWrapper>
       </body>
     </html>
   );
