@@ -6,6 +6,7 @@ import "highlight.js/styles/vs-dark.css"
 import CodeBlockView from "./codeblock"
 import { cacheLife, cacheTag } from "next/cache"
 import { Suspense } from "react"
+import GiscusBlog from "./giscus"
 
 export default async function BlogItemViewPage(props: PageProps<'/blog/[year]/[id]'>) {
   return <Suspense>
@@ -38,6 +39,7 @@ async function BlogView(props: PageProps<'/blog/[year]/[id]'>) {
           }
         },
       })}
+      <GiscusBlog />
     </div>
   </div>
 }

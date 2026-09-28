@@ -1,4 +1,4 @@
-import { Schema, Types } from "mongoose";
+import { Schema } from "mongoose";
 
 export const BlogPostSchema = new Schema({
   title: { type: String, required: true, },
@@ -7,8 +7,5 @@ export const BlogPostSchema = new Schema({
   body: { type: String, required: true, transform: (v: string) => JSON.parse(v) },
   date: { type: Date, required: true, index: -1, transform: (v: Date) => v.valueOf() },
   tags: { type: [String], required: false, },
-})
-
-export const PinnedBlogPostsSchema = new Schema({
-  blogId: { type: Types.ObjectId, required: true, },
+  isPinned: { type: Boolean, required: false, },
 })
