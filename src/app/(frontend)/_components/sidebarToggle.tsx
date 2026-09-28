@@ -1,10 +1,19 @@
 "use client";
 
-import { useState } from "react";
+import { usePathname } from "next/navigation";
+import { useEffect, useState } from "react";
 
 interface ISidebarToggleWrapper { children: React.ReactNode }
 export default function SidebarToggleWrapper({ children }: ISidebarToggleWrapper) {
   const [showSidebar, setShowSidebar] = useState(false)
+
+  const pathname = usePathname()
+
+  useEffect(() => {
+    (() => {
+      setShowSidebar(false)
+    })()
+  }, [pathname])
   
   return <div className={`flex-1 flex flex-col overflow-y-hidden group/sidebar ${showSidebar ? "showSidebar" : ""}`}>
     {children}
