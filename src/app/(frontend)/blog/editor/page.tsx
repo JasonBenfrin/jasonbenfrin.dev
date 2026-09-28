@@ -5,6 +5,7 @@ import EditorMenuBar from "./menubar";
 import "highlight.js/styles/vs-dark.css"
 import { editorExtensions } from "./extensions";
 import { Suspense, useRef } from "react";
+import SuspenseFallback from "../../_components/suspenseFallback";
 
 declare module '@tiptap/core' {
   interface Commands<ReturnType> {
@@ -16,7 +17,7 @@ declare module '@tiptap/core' {
 }
 
 export default function BlogEditorPage() {
-  return <Suspense>
+  return <Suspense fallback={<SuspenseFallback />}>
     <Editor/>
   </Suspense>
 }

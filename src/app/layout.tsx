@@ -5,6 +5,8 @@ import Socials from "@/app/(frontend)/_components/socials";
 import { Inter, Martian_Mono } from "next/font/google"
 import FileTree from "@/app/(frontend)/_components/filetree";
 import SidebarToggleWrapper from "./(frontend)/_components/sidebarToggle";
+import { Suspense } from "react";
+import SuspenseFallback from "./(frontend)/_components/suspenseFallback";
 
 const interFont = Inter({
   weight: "variable",
@@ -41,16 +43,18 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
     >
       <body className="w-full h-dvh flex flex-col">
         <Socials />
-        <SidebarToggleWrapper>
-          <div className="flex-[1_1_auto] w-full overflow-hidden flex p-1 gap-1 relative">
-            <FileTree />
-            <div className="flex-3 flex absolute inset-1 bg-surface z-10 md:static group-[.showSidebar]/sidebar:hidden md:flex!">
-              <div className="flex-1 flex min-h-0 *:min-w-0">
-                {children}
+        <Suspense fallback={<SuspenseFallback />}>
+          <SidebarToggleWrapper>
+            <div className="flex-[1_1_auto] w-full overflow-hidden flex p-1 gap-1 relative">
+              <FileTree />
+              <div className="flex-3 flex absolute inset-1 bg-surface z-10 md:static group-[.showSidebar]/sidebar:hidden md:flex!">
+                <div className="flex-1 flex min-h-0 *:min-w-0">
+                  {children}
+                </div>
               </div>
             </div>
-          </div>
-        </SidebarToggleWrapper>
+          </SidebarToggleWrapper>
+        </Suspense>
       </body>
     </html>
   );

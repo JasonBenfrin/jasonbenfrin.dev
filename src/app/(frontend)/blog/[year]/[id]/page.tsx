@@ -7,9 +7,10 @@ import CodeBlockView from "./codeblock"
 import { cacheLife, cacheTag } from "next/cache"
 import { Suspense } from "react"
 import GiscusBlog from "./giscus"
+import SuspenseFallback from "@/app/(frontend)/_components/suspenseFallback"
 
 export default async function BlogItemViewPage(props: PageProps<'/blog/[year]/[id]'>) {
-  return <Suspense>
+  return <Suspense fallback={<SuspenseFallback />}>
     <BlogView {...props} />
   </Suspense>
 }
