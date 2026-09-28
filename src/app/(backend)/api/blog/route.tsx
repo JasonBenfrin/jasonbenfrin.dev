@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { BlogModel } from "../../mongoose";
 import { customAlphabet } from "nanoid";
+import { updateTag } from "next/cache";
 
 const alphabet = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'
 const smallId = customAlphabet(alphabet, 6)
@@ -28,6 +29,7 @@ export async function POST(request: NextRequest): Promise<Response> {
     })
 
     const doc = await newBlog.save()
+    updateTag("total-blogs")
     return NextResponse.json(doc)
   } catch (err) {
     console.error(err)
